@@ -1,4 +1,4 @@
-````markdown
+
 # 🛡️ Windows Alarm
 
 **Windows Alarm** adalah sistem keamanan berbasis **Python** dan **Node.js** yang dirancang untuk mendeteksi aktivitas mencurigakan pada perangkat (gerakan mouse, pencabutan charger, aktivitas keyboard, pengambilan screenshot, hingga tangkapan kamera) dan mengirimkan notifikasi secara otomatis ke **WhatsApp** melalui koneksi WebSocket.
