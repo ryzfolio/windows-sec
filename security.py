@@ -17,6 +17,7 @@ alarm = False
 log_file = "security_log.txt"
 tempat_ss = "screenshots"
 tempat_foto = "camera_shots"
+ownernumber = "MASUKKAN OWNER NUMBER DISINI"
 
 os.makedirs(tempat_ss, exist_ok=True)
 os.makedirs(tempat_foto, exist_ok=True)
@@ -142,14 +143,14 @@ def monitor_security():
             if abs(mouse_sekarang[0] - mouse_terakhir[0]) > sensi_mouse or abs(
                 mouse_sekarang[1] - mouse_terakhir[1]
             ) > sensi_mouse:
-                send_whatsapp("628818837894", "TEXT", f"🖱️ Mouse Laptop Digerakkan! bergerak sejauh {jauh}px")
+                send_whatsapp(ownernumber, "TEXT", f"🖱️ Mouse Laptop Digerakkan! bergerak sejauh {jauh}px")
                 log_event("⚠️ Mouse bergerak mencurigakan!")
 
             mouse_terakhir = mouse_sekarang
             time.sleep(0.5)
         except Exception as e:
             log_event(f"❌ Error monitor_security: {e}")
-            send_whatsapp("628818837894", "TEXT", f"⚠️ Gagal Monitoring! \nmonitor_security (mouse) : {e}")
+            send_whatsapp(ownernumber, "TEXT", f"⚠️ Gagal Monitoring! \nmonitor_security (mouse) : {e}")
 
 
 def charger_monitor():
@@ -160,19 +161,19 @@ def charger_monitor():
             casan_terbaru = check_charger()
             if casan_terbaru != status_casan:
                 if not casan_terbaru:
-                    send_whatsapp("628818837894", "TEXT", "🔋 Charger Dicabut!")
+                    send_whatsapp(ownernumber, "TEXT", "🔋 Charger Dicabut!")
                     log_event("⚠️ Charger dicabut!")
             status_casan = casan_terbaru
             time.sleep(1)
         except Exception as e:
             log_event(f"❌ Error charger_monitor: {e}")
-            send_whatsapp("628818837894", "TEXT", f"⚠️ Gagal Monitoring! \ncharger_monitor (charger) : {e}")
+            send_whatsapp(ownernumber, "TEXT", f"⚠️ Gagal Monitoring! \ncharger_monitor (charger) : {e}")
 
 
 def keyboard_logger():
     def on_key(event):
         log_event(f"🛑 Tombol ditekan: {event.name}")
-        send_whatsapp("628818837894", "TEXT", f"👤 Keyboard Diketik: {event.name}")
+        send_whatsapp(ownernumber, "TEXT", f"👤 Keyboard Diketik: {event.name}")
 
     keyboard.on_press(on_key)
     keyboard.wait()
@@ -186,7 +187,7 @@ def capture_screenshot():
         screenshot = ImageGrab.grab()
         screenshot.save(ss_path)
 
-        send_whatsapp("628818837894", "FOTO", ss_path, "Screenshot!")
+        send_whatsapp(ownernumber, "FOTO", ss_path, "Screenshot!")
         return ss_path
     except Exception as e:
         log_event(f"❌ Error capture_screenshot: {e}")
@@ -199,13 +200,13 @@ def capture_camera():
         waktu = str(int(time.time()))
         cam_path = os.path.join(tempat_foto, f"camera_{waktu}.png")
 
-        cap = cv2.VideoCapture(4)
+        cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
         cap.release()
 
         if ret:
             cv2.imwrite(cam_path, frame)
-            send_whatsapp("628818837894", "FOTO", cam_path, "WebCam!")
+            send_whatsapp(ownernumber, "FOTO", cam_path, "WebCam!")
             return cam_path
         else:
             log_event("❌ Kamera gagal menangkap gambar!")
@@ -239,3 +240,4 @@ if __name__ == "__main__":
     
     while True:
         time.sleep(1)
+
