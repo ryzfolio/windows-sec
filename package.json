@@ -1,0 +1,13 @@
+{
+  "name": "windows-alarm",
+  "version": "1.0.0",
+  "description": "Windows Alarm with WhatsApp integration (Baileys + WS)",
+  "main": "waconnect.js",
+  "scripts": {
+    "start": "node waconnect.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.6",
+    "ws": "^8.18.0"
+  }
+}
