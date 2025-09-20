@@ -1,0 +1,6 @@
+wmi
+pyautogui
+keyboard
+opencv-python
+pillow
+websocket-client
